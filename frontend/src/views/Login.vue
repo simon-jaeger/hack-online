@@ -9,19 +9,9 @@
         <InputText label="E-Mail oder Benutzername" :error="errors.email">
           <input v-model="user.email" type="text">
         </InputText>
-        <InputText label="Passwort" :error="errors.password">
-          <input
-            v-model="user.password"
-            :type="passwordVisible ? 'text' : 'password'"
-          >
-          <button
-            type="button"
-            @click="passwordVisible = !passwordVisible"
-            style="display: contents;"
-          >
-            <i>{{ passwordVisible ? "visibility_off" : "visibility" }}</i>
-          </button>
-        </InputText>
+        <InputPassword label="Passwort" :error="errors.password">
+          <input v-model="user.password" >
+        </InputPassword>
         <button type="submit" class="Button">Login</button>
       </form>
 
@@ -40,13 +30,14 @@
   import Api from "@/services/Api"
   import * as u from "@/utils/utilFunctions"
   import Router from "@/services/Router"
+  import InputPassword from "@/components/InputPassword.vue"
 
   @Component({
     name: 'Login',
     metaInfo: {
       title: "Login",
     },
-    components: {InputText},
+    components: {InputPassword, InputText},
   })
   export default class Login extends Vue {
     user: Partial<User> = {
@@ -58,8 +49,6 @@
       email: "",
       password: "",
     }
-
-    passwordVisible = false
 
     async login() {
       try {

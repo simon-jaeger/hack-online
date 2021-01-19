@@ -12,19 +12,9 @@
         <InputText label="E-Mail" :error="errors.email">
           <input v-model="user.email" type="email">
         </InputText>
-        <InputText label="Passwort" :error="errors.password">
-          <input
-            v-model="user.password"
-            :type="passwordVisible ? 'text' : 'password'"
-          >
-          <button
-            type="button"
-            @click="passwordVisible = !passwordVisible"
-            style="display: contents;"
-          >
-            <i>{{ passwordVisible ? "visibility_off" : "visibility" }}</i>
-          </button>
-        </InputText>
+        <InputPassword label="Passwort" :error="errors.password">
+          <input v-model="user.password">
+        </InputPassword>
         <p style="font-size:14px; color:var(--black-light);">
           Durch die Registrierung akzeptierst du die
           <RouterLink class="Link" to="/datenschutzerklaerung">
@@ -47,13 +37,14 @@
   import Api from "@/services/Api"
   import * as u from "@/utils/utilFunctions"
   import Router from "@/services/Router"
+  import InputPassword from "@/components/InputPassword.vue"
 
   @Component({
-    name: 'Registrierung',
+    name: "Registrierung",
     metaInfo: {
       title: "Registrierung",
     },
-    components: {InputText},
+    components: {InputPassword, InputText},
   })
   export default class Registrierung extends Vue {
     user: User = {
@@ -67,8 +58,6 @@
       email: "",
       password: "",
     }
-
-    passwordVisible = false
 
     async register() {
       try {
