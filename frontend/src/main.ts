@@ -26,6 +26,8 @@ Api.get("user").then(user => {
   localStorage.setItem("user", user)
 })
 
-// TODO: rm, dev helper
+// dev helper
+////////////////////////////////////////////////////////////////////////////////
+
 // @ts-ignore
-window.Api = Api
+window.api = Api
