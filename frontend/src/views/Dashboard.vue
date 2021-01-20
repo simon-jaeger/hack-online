@@ -19,6 +19,9 @@
             <InputText label="E-Mail" :error="userErrors.email">
               <input v-model="user.email" type="email">
             </InputText>
+            <InputPassword label="Neues Passwort" :error="userErrors.password">
+              <input v-model="user.password" type="password">
+            </InputPassword>
             <button type="submit" class="Button" :disabled="userSaved">
               {{ userSaved ? "Gespeichert!" : "Speichern" }}
             </button>
@@ -43,23 +46,26 @@
   import Router from "@/services/Router"
   import InputText from "@/components/InputText.vue"
   import * as u from "@/utils/utilFunctions"
+  import InputPassword from "@/components/InputPassword.vue"
 
   @Component({
-    name: 'Dashboard',
+    name: "Dashboard",
     metaInfo: {
       title: "Dashboard",
     },
-    components: {InputText},
+    components: {InputPassword, InputText},
   })
   export default class Dashboard extends Vue {
     user: Partial<User> = {
       username: "",
       email: "",
+      password: "",
     }
 
     userErrors: Partial<User> = {
       username: "",
       email: "",
+      password: "",
     }
 
     userSaved = false
@@ -68,6 +74,7 @@
       try {
         await Api.patch("user", this.user)
         Object.assign(this.userErrors, u.mapValues(this.userErrors, x => ""))
+        this.user.password = ""
         this.userSaved = true
         await u.sleep(1500)
         this.userSaved = false
@@ -85,7 +92,7 @@
     }
 
     async created() {
-      this.user = await Api.get("user")
+      Object.assign(this.user, await Api.get("user"))
       if (!this.user) await Router.push("/login")
     }
   }
