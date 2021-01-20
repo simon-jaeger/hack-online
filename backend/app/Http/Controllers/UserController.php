@@ -22,7 +22,7 @@ class UserController extends Controller {
   }
 
   public function update(Request $request) {
-    if ($request->password === null) $request->request->remove('password');
+    if ($request->get('password') === null) $request->request->remove('password');
     $user = Auth::user();
     $data = $request->validate([
       'username' => ['required', 'alpha_dash', 'max:255', Rule::unique('users')->ignore($user)],
