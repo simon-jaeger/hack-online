@@ -5,8 +5,8 @@ interface User {
 }
 
 interface Project {
-  name:string
-  link:string
-  description:string
-  image:string
+  name: string
+  link: string
+  description: string
+  image: string
 }

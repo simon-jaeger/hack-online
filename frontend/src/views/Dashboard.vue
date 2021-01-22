@@ -70,25 +70,25 @@
     components: {InputPassword, InputText},
   })
   export default class Dashboard extends Vue {
-    user: Partial<User> = {
+    user: User = {
       username: "",
       email: "",
       password: "",
     }
-    userErrors: Partial<User> = {
+    userErrors: User = {
       username: "",
       email: "",
       password: "",
     }
     userSaved = false
 
-    project: Partial<Project> = {
+    project: Project = {
       name: "",
       link: "",
       description: "",
       image: "",
     }
-    projectErrors: Partial<Project> = {
+    projectErrors: Project = {
       name: "",
       link: "",
       description: "",
@@ -99,27 +99,27 @@
     async userSave() {
       try {
         await Api.patch("user", this.user)
-        Object.assign(this.userErrors, u.mapValues(this.userErrors, x => ""))
+        u.fill(this.userErrors, "")
         this.user.password = ""
         this.userSaved = true
         await u.sleep(1500)
         this.userSaved = false
       } catch (e) {
-        Object.assign(this.userErrors, u.mapValues(this.userErrors, x => ""))
-        Object.assign(this.userErrors, u.mapValues(e.response.data.errors, x => x[0]))
+        u.fill(this.userErrors, "")
+        Object.assign(this.userErrors, e.response.data.errors)
       }
     }
 
     async projectSave() {
       try {
         await Api.patch("project", this.project)
-        Object.assign(this.projectErrors, u.mapValues(this.projectErrors, x => ""))
+        u.fill(this.projectErrors, "")
         this.projectSaved = true
         await u.sleep(1500)
         this.projectSaved = false
       } catch (e) {
-        Object.assign(this.projectErrors, u.mapValues(this.projectErrors, x => ""))
-        Object.assign(this.projectErrors, u.mapValues(e.response.data.errors, x => x[0]))
+        u.fill(this.projectErrors, "")
+        Object.assign(this.projectErrors, e.response.data.errors)
       }
     }
 

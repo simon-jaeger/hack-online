@@ -10,7 +10,7 @@
           <input v-model="user.email" type="text">
         </InputText>
         <InputPassword label="Passwort" :error="errors.password">
-          <input v-model="user.password" >
+          <input v-model="user.password">
         </InputPassword>
         <button type="submit" class="Button">Login</button>
       </form>
@@ -33,7 +33,7 @@
   import InputPassword from "@/components/InputPassword.vue"
 
   @Component({
-    name: 'Login',
+    name: "Login",
     metaInfo: {
       title: "Login",
     },
@@ -55,9 +55,8 @@
         localStorage.setItem("user", await Api.post("login", this.user))
         await Router.push("/dashboard")
       } catch (e) {
-        console.warn(e.response)
-        Object.assign(this.errors, u.mapValues(this.errors, x => ""))
-        Object.assign(this.errors, u.mapValues(e.response.data.errors, x => x[0]))
+        u.fill(this.errors, "")
+        Object.assign(this.errors, e.response.data.errors)
       }
     }
   }

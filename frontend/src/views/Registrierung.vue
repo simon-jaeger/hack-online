@@ -64,9 +64,8 @@
         localStorage.setItem("user", await Api.post("register", this.user))
         await Router.push("/dashboard")
       } catch (e) {
-        console.warn(e.response)
-        Object.assign(this.errors, u.mapValues(this.errors, x => ""))
-        Object.assign(this.errors, u.mapValues(e.response.data.errors, x => x[0]))
+        u.fill(this.errors, "")
+        Object.assign(this.errors, e.response.data.errors)
       }
     }
   }
