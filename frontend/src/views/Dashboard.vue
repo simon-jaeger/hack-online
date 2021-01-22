@@ -28,10 +28,24 @@
           </div>
         </form>
 
-        <form>
+        <form @submit.prevent="projectSave" novalidate>
           <h2 class="d5">Projekt</h2>
-          <div class="d9" style="color:var(--black-lighter);">
-            Folgt demnächst...
+          <div class="d9">
+            <InputText label="Name" :error="projectErrors.name">
+              <input v-model="project.name" type="text">
+            </InputText>
+            <InputText label="Link" :error="projectErrors.link">
+              <input v-model="project.link" type="text">
+            </InputText>
+            <InputText label="Beschreibung" :error="projectErrors.description">
+              <textarea v-model="project.description"></textarea>
+            </InputText>
+            <InputText label="Bild" :error="projectErrors.image">
+              <input v-model="project.image" type="text">
+            </InputText>
+            <button type="submit" class="Button" :disabled="projectSaved">
+              {{ projectSaved ? "Gespeichert!" : "Speichern" }}
+            </button>
           </div>
         </form>
 
@@ -61,14 +75,26 @@
       email: "",
       password: "",
     }
-
     userErrors: Partial<User> = {
       username: "",
       email: "",
       password: "",
     }
-
     userSaved = false
+
+    project: Partial<Project> = {
+      name: "",
+      link: "",
+      description: "",
+      image: "",
+    }
+    projectErrors: Partial<Project> = {
+      name: "",
+      link: "",
+      description: "",
+      image: "",
+    }
+    projectSaved = false
 
     async userSave() {
       try {
@@ -79,9 +105,21 @@
         await u.sleep(1500)
         this.userSaved = false
       } catch (e) {
-        console.warn(e.response)
         Object.assign(this.userErrors, u.mapValues(this.userErrors, x => ""))
         Object.assign(this.userErrors, u.mapValues(e.response.data.errors, x => x[0]))
+      }
+    }
+
+    async projectSave() {
+      try {
+        await Api.patch("project", this.project)
+        Object.assign(this.projectErrors, u.mapValues(this.projectErrors, x => ""))
+        this.projectSaved = true
+        await u.sleep(1500)
+        this.projectSaved = false
+      } catch (e) {
+        Object.assign(this.projectErrors, u.mapValues(this.projectErrors, x => ""))
+        Object.assign(this.projectErrors, u.mapValues(e.response.data.errors, x => x[0]))
       }
     }
 
@@ -93,7 +131,7 @@
 
     async created() {
       Object.assign(this.user, await Api.get("user"))
-      if (!this.user) await Router.push("/login")
+      Object.assign(this.project, await Api.get("project"))
     }
   }
 </script>

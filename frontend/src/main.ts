@@ -21,7 +21,7 @@ new Vue({
   render: h => h(App),
 }).$mount("#app")
 
-// set remembered user
+// check if logged in
 Api.get("user").then(user => {
   localStorage.setItem("user", user)
 })

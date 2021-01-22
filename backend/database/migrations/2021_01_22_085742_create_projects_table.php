@@ -13,10 +13,10 @@ class CreateProjectsTable extends Migration {
   public function up() {
     Schema::create('projects', function (Blueprint $table) {
       $table->id();
-      $table->string('name');
-      $table->string('link');
-      $table->string('description');
-      $table->string('image');
+      $table->string('name')->nullable();
+      $table->string('link')->nullable();
+      $table->string('description')->nullable();
+      $table->string('image')->nullable();
       $table->foreignId('user_id')->constrained();
       $table->timestamps();
     });

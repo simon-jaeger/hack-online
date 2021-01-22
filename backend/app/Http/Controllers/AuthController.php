@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -22,6 +23,7 @@ class AuthController extends Controller {
       'email' => $request->email,
       'password' => Hash::make($request->password),
     ]);
+    $project = Project::create(['user_id' => $user->id]);
     Auth::login($user, true);
     return $user;
   }

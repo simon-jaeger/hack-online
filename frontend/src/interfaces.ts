@@ -3,3 +3,10 @@ interface User {
   email: string
   password: string
 }
+
+interface Project {
+  name:string
+  link:string
+  description:string
+  image:string
+}
