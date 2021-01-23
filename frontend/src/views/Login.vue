@@ -26,9 +26,9 @@
 
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
+  import * as u from "@/utils/utilFunctions"
   import InputText from "@/components/InputText.vue"
   import Api from "@/services/Api"
-  import * as u from "@/utils/utilFunctions"
   import Router from "@/services/Router"
   import InputPassword from "@/components/InputPassword.vue"
 

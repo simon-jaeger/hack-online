@@ -33,11 +33,6 @@ export function fill(obj:Object, value) {
   }
 }
 
-// temporarily change value then reset
-export function flash() {
-  
-}
-
 // download file(s)
 export function download(pUrls: string | string[]) {
   const urls = Array.isArray(pUrls) ? pUrls : [pUrls]

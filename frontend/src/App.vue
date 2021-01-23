@@ -2,7 +2,7 @@
   <div>
     <a id="top" href="#"></a>
     <Header/>
-    <KeepAlive max="4" :exclude="['Registrierung', 'Login', 'Dashboard']">
+    <KeepAlive max="4" :exclude="['Registrierung', 'Login']">
       <RouterView/>
     </KeepAlive>
   </div>

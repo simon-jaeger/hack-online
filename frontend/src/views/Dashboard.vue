@@ -56,10 +56,10 @@
 
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
+  import * as u from "@/utils/utilFunctions"
   import Api from "@/services/Api"
   import Router from "@/services/Router"
   import InputText from "@/components/InputText.vue"
-  import * as u from "@/utils/utilFunctions"
   import InputPassword from "@/components/InputPassword.vue"
 
   @Component({
@@ -129,9 +129,9 @@
       await Router.push("/login")
     }
 
-    async created() {
-      Object.assign(this.user, await Api.get("user"))
-      Object.assign(this.project, await Api.get("project"))
+    activated() {
+      Api.get("user").then(x => Object.assign(this.user, x))
+      Api.get("project").then(x => Object.assign(this.project, x))
     }
   }
 </script>

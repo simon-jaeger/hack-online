@@ -23,7 +23,7 @@ class ProjectController extends Controller {
     $data = $request->validate([
       'name' => 'nullable|string|max:255',
       'link' => 'nullable|url|max:255',
-      'description' => 'nullable|string|max:511',
+      'description' => 'nullable|string|max:4095',
       'image' => 'nullable|string',
     ]);
     Auth::user()->project->update($data);
