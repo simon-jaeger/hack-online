@@ -129,7 +129,7 @@
       await Router.push("/login")
     }
 
-    activated() {
+    created() {
       Api.get("user").then(x => Object.assign(this.user, x))
       Api.get("project").then(x => Object.assign(this.project, x))
     }
