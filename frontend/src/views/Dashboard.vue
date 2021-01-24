@@ -40,9 +40,11 @@
             <InputText label="Beschreibung" :error="projectErrors.description">
               <textarea v-model="project.description"></textarea>
             </InputText>
-            <InputText label="Bild" :error="projectErrors.image">
-              <input v-model="project.image" type="text">
-            </InputText>
+            <InputImage
+              label="Bild"
+              v-model="project.image"
+              :error="projectErrors.image"
+            />
             <button type="submit" class="Button" :disabled="projectSaved">
               {{ projectSaved ? "Gespeichert!" : "Speichern" }}
             </button>
@@ -61,77 +63,59 @@
   import Router from "@/services/Router"
   import InputText from "@/components/InputText.vue"
   import InputPassword from "@/components/InputPassword.vue"
+  import InputImage from "@/components/InputImage.vue"
 
   @Component({
     name: "Dashboard",
     metaInfo: {
       title: "Dashboard",
     },
-    components: {InputPassword, InputText},
+    components: {InputImage, InputPassword, InputText},
   })
   export default class Dashboard extends Vue {
-    user: User = {
-      username: "",
-      email: "",
-      password: "",
-    }
-    userErrors: User = {
-      username: "",
-      email: "",
-      password: "",
-    }
+    user: Partial<User> = {}
+    userErrors: Partial<User> = {}
     userSaved = false
 
-    project: Project = {
-      name: "",
-      link: "",
-      description: "",
-      image: "",
-    }
-    projectErrors: Project = {
-      name: "",
-      link: "",
-      description: "",
-      image: "",
-    }
+    project: Partial<Project> = {}
+    projectErrors: Partial<Project> = {}
     projectSaved = false
 
     async userSave() {
       try {
         await Api.patch("user", this.user)
-        u.fill(this.userErrors, "")
+        this.userErrors = {}
         this.user.password = ""
         this.userSaved = true
         await u.sleep(1500)
         this.userSaved = false
       } catch (e) {
-        u.fill(this.userErrors, "")
-        Object.assign(this.userErrors, e.response.data.errors)
+        this.userErrors = e.response.data.errors
       }
     }
 
     async projectSave() {
       try {
         await Api.patch("project", this.project)
-        u.fill(this.projectErrors, "")
+        this.projectErrors = {}
         this.projectSaved = true
         await u.sleep(1500)
         this.projectSaved = false
       } catch (e) {
-        u.fill(this.projectErrors, "")
-        Object.assign(this.projectErrors, e.response.data.errors)
+        this.projectErrors = e.response.data.errors
       }
     }
 
     async logout() {
       await Api.post("logout")
       localStorage.setItem("user", "")
+      this.$destroy()
       await Router.push("/login")
     }
 
     created() {
-      Api.get("user").then(x => Object.assign(this.user, x))
-      Api.get("project").then(x => Object.assign(this.project, x))
+      Api.get("user").then(x => this.user = x)
+      Api.get("project").then(x => this.project = x)
     }
   }
 </script>

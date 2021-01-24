@@ -33,7 +33,6 @@
 
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
-  import * as u from "@/utils/utilFunctions"
   import InputText from "@/components/InputText.vue"
   import Api from "@/services/Api"
   import Router from "@/services/Router"
@@ -47,25 +46,15 @@
     components: {InputPassword, InputText},
   })
   export default class Registrierung extends Vue {
-    user: User = {
-      username: "",
-      email: "",
-      password: "",
-    }
-
-    errors: User = {
-      username: "",
-      email: "",
-      password: "",
-    }
+    user: Partial<User> = {}
+    errors: Partial<User> = {}
 
     async register() {
       try {
         localStorage.setItem("user", await Api.post("register", this.user))
         await Router.push("/dashboard")
       } catch (e) {
-        u.fill(this.errors, "")
-        Object.assign(this.errors, e.response.data.errors)
+        this.errors = e.response.data.errors
       }
     }
   }

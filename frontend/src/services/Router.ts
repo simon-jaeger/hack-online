@@ -42,10 +42,20 @@ const Router = new VueRouter({
     {
       path: "/registrierung",
       component: Registrierung,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem("user"))
+          return Router.push("/dashboard")
+        return next()
+      },
     },
     {
       path: "/login",
       component: Login,
+      beforeEnter: (to, from, next) => {
+        if (localStorage.getItem("user"))
+          return Router.push("/dashboard")
+        return next()
+      },
     },
   ],
   scrollBehavior(to, from, savedPosition) {

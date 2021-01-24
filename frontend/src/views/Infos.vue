@@ -1,7 +1,7 @@
 <template>
-  <main>
+  <main v-if="d">
     <div class="i1">
-      <div v-if="d" class="i2 wysiwyg">
+      <div class="i2 wysiwyg">
         <h1>{{ d.title }}</h1>
         <div class="i3" :style="`background-image: url('${d.img.path}');`">
         </div>
@@ -24,7 +24,7 @@
     components: {},
   })
   export default class Infos extends Vue {
-    d: null | InfosInterface = null
+    d: InfosInterface | null = null
     marked = marked
 
     async created() {

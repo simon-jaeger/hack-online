@@ -26,7 +26,6 @@
 
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
-  import * as u from "@/utils/utilFunctions"
   import InputText from "@/components/InputText.vue"
   import Api from "@/services/Api"
   import Router from "@/services/Router"
@@ -40,23 +39,15 @@
     components: {InputPassword, InputText},
   })
   export default class Login extends Vue {
-    user: Partial<User> = {
-      email: "",
-      password: "",
-    }
-
-    errors: Partial<User> = {
-      email: "",
-      password: "",
-    }
+    user: Partial<User> = {}
+    errors: Partial<User> = {}
 
     async login() {
       try {
         localStorage.setItem("user", await Api.post("login", this.user))
         await Router.push("/dashboard")
       } catch (e) {
-        u.fill(this.errors, "")
-        Object.assign(this.errors, e.response.data.errors)
+        this.errors = e.response.data.errors
       }
     }
   }
