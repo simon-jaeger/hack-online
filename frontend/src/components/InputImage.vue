@@ -111,8 +111,6 @@
       flex-direction: column;
       & i {
         font-size: 8rem;
-        line-height: 1;
-        margin-bottom: 0.5rem;
         @media (--md) {
           font-size: 4rem;
         }
