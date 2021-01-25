@@ -23,7 +23,7 @@ new Vue({
 
 // check if logged in
 Api.get("user").then(user => {
-  localStorage.setItem("user", user)
+  localStorage.setItem("isUser", user)
 })
 
 // TODO: dev helper, remove later

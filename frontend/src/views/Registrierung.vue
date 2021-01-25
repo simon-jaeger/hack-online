@@ -51,7 +51,7 @@
 
     async register() {
       try {
-        localStorage.setItem("user", await Api.post("register", this.user))
+        localStorage.setItem("isUser", await Api.post("register", this.user))
         await Router.push("/dashboard")
       } catch (e) {
         this.errors = e.response.data.errors

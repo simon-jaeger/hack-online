@@ -37,9 +37,16 @@ class Api {
     const formData = new FormData()
     for (const [key, value] of Object.entries(data)) {
       if (Array.isArray(value)) value.forEach(x => formData.append(key + "[]", x))
+      else if (value == null) formData.append(key, '')
       else formData.append(key, value)
     }
     return (await this._axios.post(url, formData, {headers: {"Content-Type": "multipart/form-data"}})).data
+  }
+
+  async patchBlob<T = any>(url: Endpoint, data: Object): Promise<T> {
+    // @ts-ignore
+    data._method = 'PATCH'
+    return await this.postBlob(url, data)
   }
 }
 

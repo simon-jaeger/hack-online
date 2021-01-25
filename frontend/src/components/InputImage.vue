@@ -32,6 +32,7 @@
       ref="$fileInput"
       type="file"
       accept="image/*"
+      style="display:none;"
     >
   </InputText>
 </template>

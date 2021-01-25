@@ -96,7 +96,7 @@
 
     async projectSave() {
       try {
-        await Api.patch("project", this.project)
+        await Api.patchBlob("project", this.project)
         this.projectErrors = {}
         this.projectSaved = true
         await u.sleep(1500)
@@ -108,7 +108,7 @@
 
     async logout() {
       await Api.post("logout")
-      localStorage.setItem("user", "")
+      localStorage.setItem("isUser", "")
       this.$destroy()
       await Router.push("/login")
     }

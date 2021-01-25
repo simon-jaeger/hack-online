@@ -27,7 +27,7 @@ class UserController extends Controller {
     $data = $request->validate([
       'username' => ['required', 'alpha_dash', 'max:255', Rule::unique('users')->ignore($user)],
       'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user)],
-      'password' => 'sometimes|string|min:8',
+      'password' => 'string|min:8',
     ]);
     if ($request->has('password')) $data['password'] = Hash::make($data['password']);
     $user->update($data);

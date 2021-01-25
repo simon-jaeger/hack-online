@@ -44,7 +44,7 @@
 
     async login() {
       try {
-        localStorage.setItem("user", await Api.post("login", this.user))
+        localStorage.setItem("isUser", await Api.post("login", this.user))
         await Router.push("/dashboard")
       } catch (e) {
         this.errors = e.response.data.errors

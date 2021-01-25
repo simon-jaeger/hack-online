@@ -34,7 +34,7 @@ const Router = new VueRouter({
       path: "/dashboard",
       component: Dashboard,
       beforeEnter: (to, from, next) => {
-        if (!localStorage.getItem("user"))
+        if (!localStorage.getItem("isUser"))
           return Router.push("/login")
         return next()
       },
@@ -43,7 +43,7 @@ const Router = new VueRouter({
       path: "/registrierung",
       component: Registrierung,
       beforeEnter: (to, from, next) => {
-        if (localStorage.getItem("user"))
+        if (localStorage.getItem("isUser"))
           return Router.push("/dashboard")
         return next()
       },
@@ -52,7 +52,7 @@ const Router = new VueRouter({
       path: "/login",
       component: Login,
       beforeEnter: (to, from, next) => {
-        if (localStorage.getItem("user"))
+        if (localStorage.getItem("isUser"))
           return Router.push("/dashboard")
         return next()
       },

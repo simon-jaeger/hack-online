@@ -178,5 +178,6 @@ return [
     'size' => 'Grösse',
 
     'link' => 'Link',
+    'image' => 'Bild',
   ],
 ];
