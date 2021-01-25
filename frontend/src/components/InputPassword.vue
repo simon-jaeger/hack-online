@@ -45,7 +45,7 @@
     top: 3.5rem;
     transform: translateY(-50%);
     color: var(--black-lighter);
-    background: linear-gradient(var(--gray-lighter), var(--gray-lighter)), linear-gradient(white, white);
+    background-color: var(--gray-lighter);
     &:hover {
       color: var(--black);
     }

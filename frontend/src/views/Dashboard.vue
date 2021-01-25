@@ -35,7 +35,7 @@
               <input v-model="project.name" type="text">
             </InputText>
             <InputText label="Link" :error="projectErrors.link">
-              <input v-model="project.link" type="text">
+              <input v-model="project.link" type="text" placeholder="https://link-zu-deinem-projekt.ch">
             </InputText>
             <InputText label="Beschreibung" :error="projectErrors.description">
               <textarea v-model="project.description"></textarea>

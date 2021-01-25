@@ -4,14 +4,9 @@
       v-if="previewNewImage || value"
       @click="$fileInput.click()"
       type="button"
-      style="width: 100%;"
-    >
-      <img
-        class="image"
-        :src="previewNewImage || value"
-        alt=""
-      />
-    </button>
+      class="image"
+      :style="`background-image: url('${previewNewImage || value}')`"
+    />
 
     <button
       v-else
@@ -19,8 +14,10 @@
       type="button"
       class="button"
     >
-      <i>cloud_upload</i>
-      <span>Datei auswählen oder hier hin ziehen</span>
+      <span>
+        <i>cloud_upload</i>
+        <span>Datei auswählen</span>
+      </span>
     </button>
 
     <input
@@ -28,6 +25,7 @@
       ref="$fileInput"
       type="file"
       accept="image/*"
+      style="display:none;"
     >
   </InputText>
 </template>
@@ -67,28 +65,46 @@
 <style scoped>
   .image {
     width: 100%;
-    height: 16rem;
-    object-fit: cover;
+    padding-bottom: 56.25%;
+    border: 1px solid transparent;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
+
   .button {
+    position: relative;
     width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    height: 16rem;
+    padding-bottom: 56.25%;
     border: 1px solid var(--gray);
     border-radius: var(--border-radius);
     color: var(--black-lighter);
     background-color: var(--gray-lighter);
-    &:focus{}
+    &:focus {
+    }
     &:hover,
     &:focus-visible {
       border-color: var(--teal);
       color: var(--black-light);
     }
-    & i {
-      font-size: 8rem;
+    & > span {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      & i {
+        font-size: 8rem;
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        @media (--md) {
+          font-size: 4rem;
+        }
+      }
     }
   }
 </style>
