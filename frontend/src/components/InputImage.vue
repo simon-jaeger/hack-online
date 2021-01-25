@@ -3,6 +3,8 @@
     <button
       v-if="previewNewImage || value"
       @click="$fileInput.click()"
+      @drop.prevent="onDrop"
+      @dragover.prevent
       type="button"
       class="image"
       :style="`background-image: url('${previewNewImage || value}')`"
@@ -11,8 +13,13 @@
     <button
       v-else
       @click="$fileInput.click()"
+      @drop.prevent="onDrop($event); drop = false;"
+      @dragover.prevent
+      @dragenter.prevent="drop = true"
+      @dragleave.prevent="drop = false"
       type="button"
       class="button"
+      :class="{drop}"
     >
       <span>
         <i>cloud_upload</i>
@@ -21,11 +28,10 @@
     </button>
 
     <input
-      @change="change"
+      @change="onChange"
       ref="$fileInput"
       type="file"
       accept="image/*"
-      style="display:none;"
     >
   </InputText>
 </template>
@@ -34,7 +40,6 @@
   import {Component, Prop, Ref, Vue} from "vue-property-decorator"
   import InputText from "@/components/InputText.vue"
 
-  // TODO: drag and drop
   // TODO: backend (same path: do nothing, emtpy string: null it, file: store file and update path
 
   @Component({
@@ -47,10 +52,11 @@
     @Ref() readonly $fileInput!: HTMLInputElement
 
     previewNewImage = ""
+    drop = false
 
-    change() {
+    onChange() {
       URL.revokeObjectURL(this.previewNewImage)
-      const file = this.$fileInput.files![0]
+      const file = this.$fileInput.files?.[0]
       if (file) {
         this.previewNewImage = URL.createObjectURL(file)
         this.$emit("input", file)
@@ -59,6 +65,11 @@
         this.$emit("input", "")
       }
     }
+
+    onDrop(e: DragEvent) {
+      this.$fileInput.files = e.dataTransfer!.files
+      this.onChange()
+    }
   }
 </script>
 
@@ -66,7 +77,8 @@
   .image {
     width: 100%;
     padding-bottom: 56.25%;
-    border: 1px solid transparent;
+    border-top: 1px solid transparent;
+    border-bottom: 1px solid transparent;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -80,14 +92,14 @@
     border-radius: var(--border-radius);
     color: var(--black-lighter);
     background-color: var(--gray-lighter);
-    &:focus {
-    }
     &:hover,
+    &.drop,
     &:focus-visible {
       border-color: var(--teal);
       color: var(--black-light);
     }
     & > span {
+      pointer-events: none;
       position: absolute;
       top: 0;
       right: 0;
