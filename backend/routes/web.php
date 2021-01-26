@@ -21,6 +21,7 @@ Route::prefix('api')->middleware('throttle:60,1')->group(function () {
   Route::get('/project', [ProjectController::class, 'show']);
   Route::patch('/project', [ProjectController::class, 'update']);
   Route::get('/projects', [ProjectController::class, 'index']);
+  Route::post('/projects/{project}/vote', [ProjectController::class, 'vote']);
 });
 
 // frontend spa

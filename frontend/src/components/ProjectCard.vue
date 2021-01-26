@@ -10,9 +10,9 @@
     <div class="info">
       <div class="s1">
         <h2 style="font-weight:bold;" class="truncate">{{ project.name }}</h2>
-        <button class="s2">
+        <button class="s2" type="button" @click="$emit('vote', project)">
           <i class="star">star_border</i>
-          <span style="font-size: 14px;">24</span>
+          <span style="font-size: 14px;">{{ project.votes.length }}</span>
         </button>
       </div>
       <small style="color:var(--black-light);" class="truncate">
@@ -25,7 +25,7 @@
 <script lang="ts">
   import {Component, Prop, Vue} from "vue-property-decorator"
 
-  // TODO: star toggle fav (backend too)
+  // TODO: star toggle fav (highlight current, backend)
   // TODO: modal
 
   @Component

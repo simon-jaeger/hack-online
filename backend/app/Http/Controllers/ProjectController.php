@@ -10,11 +10,7 @@ use Storage;
 class ProjectController extends Controller {
   public function index() {
     // TODO: sort by favs
-    return Project::with('user')->whereNotNull('name')->get();
-  }
-
-  public function store(Request $request) {
-    //
+    return Project::with('user', 'votes')->whereNotNull('name')->get();
   }
 
   public function show() {
@@ -27,7 +23,7 @@ class ProjectController extends Controller {
     $data = $request->validate([
       'name' => 'nullable|string|max:255',
       'link' => 'nullable|url|max:255',
-      'description' => 'nullable|string|max:4095',
+      'description' => 'nullable|string|max:5000',
       'image' => 'nullable|image|max:1024',
     ]);
     if ($request->exists('image')) Storage::delete($project->image);
@@ -36,7 +32,9 @@ class ProjectController extends Controller {
     $project->save();
   }
 
-  public function destroy(Project $project) {
-    //
+  public function vote(Project $project) {
+    // TODO: not own project
+    // TODO: limit to one
+    $project->votes()->toggle([Auth::user()->id]);
   }
 }

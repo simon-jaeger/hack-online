@@ -12,4 +12,5 @@ interface Project {
   description: string
   image: string
   user: User
+  votes: User[]
 }
