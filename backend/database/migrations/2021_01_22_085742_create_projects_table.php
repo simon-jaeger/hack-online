@@ -17,7 +17,7 @@ class CreateProjectsTable extends Migration {
       $table->string('link')->nullable();
       $table->text('description')->nullable();
       $table->string('image')->nullable();
-      $table->foreignId('user_id')->constrained();
+      $table->foreignId('user_id')->constrained()->cascadeOnDelete();
       $table->timestamps();
     });
   }
