@@ -38,7 +38,13 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     grid-gap: 1.5em;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    @media (--md) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    @media (--sm) {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
   }
 </style>

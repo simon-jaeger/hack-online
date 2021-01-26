@@ -9,6 +9,7 @@ use Storage;
 
 class ProjectController extends Controller {
   public function index() {
+    // TODO: sort by favs
     return Project::with('user')->whereNotNull('name')->get();
   }
 
