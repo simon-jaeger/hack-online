@@ -8,6 +8,7 @@ type Endpoint =
   | "login"
   | "logout"
   | "project"
+  | "projects"
 
 class Api {
   private _axios = axios.create()

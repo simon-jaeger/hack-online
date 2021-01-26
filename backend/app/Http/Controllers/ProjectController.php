@@ -9,7 +9,7 @@ use Storage;
 
 class ProjectController extends Controller {
   public function index() {
-    //
+    return Project::with('user')->whereNotNull('name')->get();
   }
 
   public function store(Request $request) {

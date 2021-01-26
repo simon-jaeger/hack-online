@@ -11,4 +11,5 @@ interface Project {
   link: string
   description: string
   image: string
+  user: User
 }
