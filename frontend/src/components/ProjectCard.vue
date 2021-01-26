@@ -15,7 +15,7 @@
           <span style="font-size: 14px;">24</span>
         </button>
       </div>
-      <small style="color:var(--black-light);">
+      <small style="color:var(--black-light);" class="truncate">
         {{ project.user.username }}
       </small>
     </div>
