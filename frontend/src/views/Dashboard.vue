@@ -35,7 +35,11 @@
               <input v-model="project.name" type="text">
             </InputText>
             <InputText label="Link" :error="projectErrors.link">
-              <input v-model="project.link" type="text" placeholder="https://link-zu-deinem-projekt.ch">
+              <input
+                v-model="project.link"
+                type="text"
+                placeholder="https://link-zu-deinem-projekt.ch"
+              >
             </InputText>
             <InputText label="Beschreibung" :error="projectErrors.description">
               <textarea v-model="project.description"></textarea>
@@ -64,6 +68,7 @@
   import InputText from "@/components/InputText.vue"
   import InputPassword from "@/components/InputPassword.vue"
   import InputImage from "@/components/InputImage.vue"
+  import Auth from "@/services/Auth"
 
   @Component({
     name: "Dashboard",
@@ -107,10 +112,8 @@
     }
 
     async logout() {
-      await Api.post("logout")
-      localStorage.setItem("isUser", "")
-      this.$destroy()
-      await Router.push("/login")
+      await Auth.logout()
+      location.replace('/login')
     }
 
     created() {

@@ -30,6 +30,7 @@
   import Api from "@/services/Api"
   import Router from "@/services/Router"
   import InputPassword from "@/components/InputPassword.vue"
+  import Auth from "@/services/Auth"
 
   @Component({
     name: "Login",
@@ -44,7 +45,7 @@
 
     async login() {
       try {
-        localStorage.setItem("isUser", await Api.post("login", this.user))
+        await Auth.login(this.user)
         await Router.push("/dashboard")
       } catch (e) {
         this.errors = e.response.data.errors

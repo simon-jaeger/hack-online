@@ -13,6 +13,7 @@ import "@/utils/cssVars"
 import App from "./App.vue"
 import Router from "@/services/Router"
 import Api from "@/services/Api"
+import Auth from "@/services/Auth"
 
 Vue.use(VueMeta)
 Vue.config.productionTip = false
@@ -21,11 +22,10 @@ new Vue({
   render: h => h(App),
 }).$mount("#app")
 
-// check if logged in
-Api.get("user").then(user => {
-  localStorage.setItem("isUser", user)
-})
+Auth.init().catch()
 
 // TODO: dev helper, remove later
 // @ts-ignore
 window.api = Api
+// @ts-ignore
+window.auth = Auth

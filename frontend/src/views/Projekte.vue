@@ -4,7 +4,6 @@
       <ProjectCard
         v-for="p of projects"
         :project="p"
-        :disableVoting="!user || p.owned"
         @vote="vote"
       />
     </div>
@@ -41,7 +40,6 @@
     }
 
     activated() {
-      Api.get("user").then(x => this.user = x)
       Api.get("projects").then(x => this.projects = x)
     }
   }

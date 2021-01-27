@@ -1,5 +1,5 @@
 <template>
-  <div class="projectCard" style="">
+  <div class="projectCard">
     <button
       class="image"
       :style="`background-image:url('${project.image}');`"
@@ -14,7 +14,7 @@
           class="vote"
           type="button"
           @click="$emit('vote', project)"
-          :disabled="disableVoting"
+          :disabled="Auth.guest() || project.owned"
         >
           <i class="star" :class="{voted: project.voted}">
             {{ project.voted ? "star" : "star_border" }}
@@ -31,11 +31,13 @@
 
 <script lang="ts">
   import {Component, Prop, Vue} from "vue-property-decorator"
+  import Auth from "@/services/Auth"
 
   @Component
   export default class ProjectCard extends Vue {
     @Prop({required: true}) readonly project!: Project
-    @Prop({required: true}) readonly disableVoting!: boolean
+
+    Auth = Auth
   }
 </script>
 
