@@ -13,4 +13,6 @@ interface Project {
   image: string
   user: User
   votes: User[]
+  owned: boolean
+  voted: boolean
 }

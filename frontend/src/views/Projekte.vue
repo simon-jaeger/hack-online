@@ -4,8 +4,7 @@
       <ProjectCard
         v-for="p of projects"
         :project="p"
-        :voted="p.votes.map(x => x.id).includes(user.id)"
-        :disableVoting="!user"
+        :disableVoting="!user || p.owned"
         @vote="vote"
       />
     </div>
@@ -14,7 +13,6 @@
 
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
-  import * as u from "@/utils/utilFunctions"
   import Api from "@/services/Api"
   import ProjectCard from "@/components/ProjectCard.vue"
 
@@ -25,14 +23,21 @@
     components: {ProjectCard},
   })
   export default class Projekte extends Vue {
-    user!: User
+    user: User | null = null
     projects: Project[] = []
 
     async vote(project: Project) {
-      const self = project.votes.find(x => x.id === this.user.id)
-      if (self) u.remove(project.votes, self)
-      else project.votes.push(this.user)
+      // optimistic update
+      if (project.voted) {
+        project.voted = false
+        project.votes.pop()
+      } else {
+        project.voted = true // @ts-ignore
+        project.votes.push(null)
+      }
+
       await Api.post("projects" + `/${project.id}/` + "vote")
+      this.projects = await Api.get("projects")
     }
 
     activated() {

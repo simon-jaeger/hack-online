@@ -9,7 +9,8 @@ use Storage;
 
 class ProjectController extends Controller {
   public function index() {
-    // TODO: sort by favs
+    // TODO: sort by favs?
+    // frontend transition if order changes? or just merge in changes with object.assign and keep order?
     return Project::with('user', 'votes')->whereNotNull('name')->get();
   }
 
@@ -33,8 +34,12 @@ class ProjectController extends Controller {
   }
 
   public function vote(Project $project) {
-    // TODO: not own project
-    // TODO: limit to one
-    $project->votes()->toggle([Auth::user()->id]);
+    $user = Auth::user();
+    if ($project->owned) abort(403);
+    if ($project->voted) {
+      $project->votes()->detach($user->id);
+    } else {
+      $user->votes()->sync($project->id);
+    }
   }
 }

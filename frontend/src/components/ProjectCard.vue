@@ -10,9 +10,14 @@
     <div class="info">
       <div class="s1">
         <h2 style="font-weight:bold;" class="truncate">{{ project.name }}</h2>
-        <button class="s2" type="button" @click="$emit('vote', project)" :disabled="disableVoting">
-          <i class="star" :class="{voted}">
-            {{ voted ? 'star' : 'star_border' }}
+        <button
+          class="vote"
+          type="button"
+          @click="$emit('vote', project)"
+          :disabled="disableVoting"
+        >
+          <i class="star" :class="{voted: project.voted}">
+            {{ project.voted ? "star" : "star_border" }}
           </i>
           <span style="font-size: 14px;">{{ project.votes.length }}</span>
         </button>
@@ -30,7 +35,6 @@
   @Component
   export default class ProjectCard extends Vue {
     @Prop({required: true}) readonly project!: Project
-    @Prop({required: true}) readonly voted!: boolean
     @Prop({required: true}) readonly disableVoting!: boolean
   }
 </script>
@@ -76,6 +80,17 @@
   .info {
     padding: 1rem;
   }
+  .vote {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    gap: 0.25rem;
+    color: var(--black-lighter);
+    font-size: 14px;
+    &:hover {
+      color: var(--black);
+    }
+  }
   .star {
     font-size: 1rem;
     &.voted {
@@ -87,13 +102,5 @@
     display: flex;
     justify-content: space-between;
     gap: 1rem;
-  }
-  .s2 {
-    display: flex;
-    align-items: center;
-    white-space: nowrap;
-    gap: 0.25rem;
-    color: var(--black-lighter);
-    font-size: 14px;
   }
 </style>
