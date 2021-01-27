@@ -10,8 +10,10 @@
     <div class="info">
       <div class="s1">
         <h2 style="font-weight:bold;" class="truncate">{{ project.name }}</h2>
-        <button class="s2" type="button" @click="$emit('vote', project)">
-          <i class="star">star_border</i>
+        <button class="s2" type="button" @click="$emit('vote', project)" :disabled="disableVoting">
+          <i class="star" :class="{voted}">
+            {{ voted ? 'star' : 'star_border' }}
+          </i>
           <span style="font-size: 14px;">{{ project.votes.length }}</span>
         </button>
       </div>
@@ -25,12 +27,11 @@
 <script lang="ts">
   import {Component, Prop, Vue} from "vue-property-decorator"
 
-  // TODO: star toggle fav (highlight current, backend)
-  // TODO: modal
-
   @Component
   export default class ProjectCard extends Vue {
     @Prop({required: true}) readonly project!: Project
+    @Prop({required: true}) readonly voted!: boolean
+    @Prop({required: true}) readonly disableVoting!: boolean
   }
 </script>
 
@@ -77,6 +78,9 @@
   }
   .star {
     font-size: 1rem;
+    &.voted {
+      color: var(--gold);
+    }
   }
 
   .s1 {

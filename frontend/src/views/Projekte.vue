@@ -1,7 +1,13 @@
 <template>
   <main class="p1">
     <div class="p2">
-      <ProjectCard v-for="p of projects" :project="p" @vote="vote"/>
+      <ProjectCard
+        v-for="p of projects"
+        :project="p"
+        :voted="p.votes.map(x => x.id).includes(user.id)"
+        :disableVoting="!user"
+        @vote="vote"
+      />
     </div>
   </main>
 </template>
@@ -23,7 +29,7 @@
     projects: Project[] = []
 
     async vote(project: Project) {
-      const self = project.votes.find(x => x.id = this.user.id)
+      const self = project.votes.find(x => x.id === this.user.id)
       if (self) u.remove(project.votes, self)
       else project.votes.push(this.user)
       await Api.post("projects" + `/${project.id}/` + "vote")
