@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "chrome http://localhost.test:8080 && vue-cli-service serve",
+    "serve": "start http://127.0.0.1:8080 && vue-cli-service serve",
     "build": "vue-cli-service build --no-clean"
   },
   "dependencies": {
