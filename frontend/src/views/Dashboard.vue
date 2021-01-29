@@ -68,7 +68,7 @@
             @click="projectDelete"
             v-click-away="() => projectDeleted = 0"
             style="color:var(--red);"
-          >Sicher? Klicke erneut um dein Projekt zu löschen
+          >Sicher? Klicke erneut, um dein Projekt zu löschen
           </button>
           <div
             v-if="projectDeleted === 1"
