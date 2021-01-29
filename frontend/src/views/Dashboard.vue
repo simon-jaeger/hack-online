@@ -53,6 +53,29 @@
               {{ projectSaved ? "Gespeichert!" : "Speichern" }}
             </button>
           </div>
+
+          <button
+            v-if="projectDeleted === 0"
+            class="d10"
+            type="button"
+            @click="projectDeleted = 0.5"
+          >Projekt löschen
+          </button>
+          <button
+            v-if="projectDeleted === 0.5"
+            class="d10"
+            type="button"
+            @click="projectDelete"
+            v-click-away="() => projectDeleted = 0"
+            style="color:var(--red);"
+          >Sicher? Klicke erneut um dein Projekt zu löschen
+          </button>
+          <div
+            v-if="projectDeleted === 1"
+            class="d10"
+            style="color: var(--black); text-decoration:none;"
+          >Projekt gelöscht</div>
+
         </form>
 
       </div>
@@ -64,7 +87,6 @@
   import {Component, Vue} from "vue-property-decorator"
   import * as u from "@/utils/utilFunctions"
   import Api from "@/services/Api"
-  import Router from "@/services/Router"
   import InputText from "@/components/InputText.vue"
   import InputPassword from "@/components/InputPassword.vue"
   import InputImage from "@/components/InputImage.vue"
@@ -85,6 +107,7 @@
     project: Partial<Project> = {}
     projectErrors: Partial<Project> = {}
     projectSaved = false
+    projectDeleted = 0
 
     async userSave() {
       try {
@@ -111,9 +134,17 @@
       }
     }
 
+    async projectDelete() {
+      u.fill(this.project, "")
+      await Api.patch("project", this.project)
+      this.projectDeleted = 1
+      await u.sleep(1500)
+      this.projectDeleted = 0
+    }
+
     async logout() {
       await Auth.logout()
-      location.replace('/login')
+      location.replace("/login")
     }
 
     created() {
@@ -164,5 +195,14 @@
     background-color: white;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
+  }
+  .d10 {
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--black-lighter);
+    &:hover, &:focus-visible {
+      color: var(--red);
+      text-decoration: underline;
+    }
   }
 </style>

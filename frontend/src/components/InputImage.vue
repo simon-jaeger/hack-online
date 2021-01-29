@@ -41,8 +41,6 @@
   import {Component, Prop, Ref, Vue} from "vue-property-decorator"
   import InputText from "@/components/InputText.vue"
 
-  // TODO: backend (same path: do nothing, emtpy string: null it, file: store file and update path
-
   @Component({
     components: {InputText},
   })
