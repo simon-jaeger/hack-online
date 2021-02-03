@@ -7,6 +7,7 @@
         @vote="vote"
       />
     </div>
+    <ProjectDetails :project="projects[0]"/>
   </main>
 </template>
 
@@ -14,12 +15,13 @@
   import {Component, Vue} from "vue-property-decorator"
   import Api from "@/services/Api"
   import ProjectCard from "@/components/ProjectCard.vue"
+  import ProjectDetails from "@/components/ProjectDetails.vue"
 
   @Component({
     metaInfo: {
       title: "Projekte",
     },
-    components: {ProjectCard},
+    components: {ProjectDetails, ProjectCard},
   })
   export default class Projekte extends Vue {
     user: User | null = null

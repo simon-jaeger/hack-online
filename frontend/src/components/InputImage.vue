@@ -6,7 +6,7 @@
       @drop.prevent="onDrop"
       @dragover.prevent
       type="button"
-      class="image"
+      class="s1"
       :style="`background-image: url('${previewNewImage || value}')`"
     />
 
@@ -73,7 +73,7 @@
 </script>
 
 <style scoped>
-  .image {
+  .s1 {
     width: 100%;
     padding-bottom: 56.25%;
     border-top: 1px solid transparent;

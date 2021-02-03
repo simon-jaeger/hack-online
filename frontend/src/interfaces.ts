@@ -3,6 +3,8 @@ interface User {
   username: string
   email: string
   password: string
+  created_at: string
+  updated_at: string
 }
 
 interface Project {
@@ -11,6 +13,8 @@ interface Project {
   link: string
   description: string
   image: string
+  created_at: string
+  updated_at: string
   user: User
   votes: User[]
   owned: boolean
