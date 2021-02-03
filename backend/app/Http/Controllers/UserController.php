@@ -9,14 +9,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller {
-  public function index() {
-    //
-  }
-
-  public function store(Request $request) {
-    //
-  }
-
   public function show(User $user) {
     return Auth::user();
   }
@@ -31,9 +23,5 @@ class UserController extends Controller {
     ]);
     if ($request->has('password')) $data['password'] = Hash::make($data['password']);
     $user->update($data);
-  }
-
-  public function destroy(User $user) {
-    //
   }
 }

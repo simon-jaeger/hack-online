@@ -9,8 +9,7 @@ use Storage;
 
 class ProjectController extends Controller {
   public function index() {
-    // TODO: sort by favs?
-    // frontend transition if order changes? or just merge in changes with object.assign and keep order?
+    // TODO: sort by favs if many projects. in frontend, keep current order when voting.
     return Project::with('user', 'votes')->whereNotNull('name')->get();
   }
 

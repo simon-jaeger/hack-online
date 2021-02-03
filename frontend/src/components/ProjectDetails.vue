@@ -1,26 +1,37 @@
 <template>
-  <div class="projectDetails" v-if="project">
+  <div class="projectDetails" v-if="project" @click.self="$emit('close')">
     <div class="inner">
-      <button @click="" type="button" class="back">← Zurück</button>
+      <button
+        @click="$emit('close')"
+        type="button"
+        class="back"
+      >← Zurück
+      </button>
       <div
         class="image"
         :style="`background-image:url('${project.image}');`"
       ></div>
       <div class="info">
-        <h2 style="font-size: 2rem; font-weight:bold;">{{ project.name }}</h2>
-        <small style="font-size: 14px; color:var(--black-light); margin-bottom: 1rem;">
+        <h2 style="font-size: 2rem; font-weight:bold;" class="truncate">{{ project.name }}</h2>
+        <small style="font-size: 14px; color:var(--black-light); margin-bottom: 1rem;" class="truncate">
           {{ project.user.username }}
         </small>
         <div class="actions">
-          <a :href="project.link" target="_blank">
+          <a v-if="project.link" :href="project.link" target="_blank">
             <i>link</i>
             <span
               style="max-width: 12rem"
               class="truncate"
             >{{ project.link.replace(/^https?:\/\//, "") }}</span>
           </a>
-          <button @click="" class="vote" type="button">
-            <i>star_border</i> {{ project.votes.length }} Stimmen
+          <button
+            @click="$emit('vote')"
+            :disabled="Auth.guest() || project.owned"
+            class="vote"
+            type="button"
+          >
+            <i :class="{voted: project.voted}">{{ project.voted ? "star" : "star_border" }}</i>
+            {{ project.votes.length }} {{ project.votes.length === 1 ? "Stimme" : "Stimmen" }}
           </button>
         </div>
         <p style="margin-bottom: 2rem;">{{ project.description }}</p>
@@ -33,21 +44,27 @@
 </template>
 
 <script lang="ts">
-  import {Component, Prop, Vue} from "vue-property-decorator"
+  import {Component, Prop, Vue, Watch} from "vue-property-decorator"
   import {format} from "date-fns"
   import {de} from "date-fns/locale"
-
-  // TODO: open, close
-  // TODO: body scroll
-  // TODO: vote
+  import Auth from "@/services/Auth"
 
   @Component
   export default class ProjectDetails extends Vue {
     @Prop({required: true}) readonly project!: Project
 
+    Auth = Auth
+
     get date() {
       const date = new Date(this.project.updated_at)
       return format(date, "d. MMMM yyyy", {locale: de})
+    }
+
+    @Watch('project')
+    syncBodyScroll() {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      document.body.style.overflow = this.project ? 'hidden' : ''
+      document.body.style.paddingRight = this.project ? scrollbarWidth + 'px' : ''
     }
   }
 </script>
@@ -67,6 +84,7 @@
   }
   .inner {
     width: 800px;
+    max-width: 100vw;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -118,6 +136,9 @@
       &.vote:hover {
         background-color: var(--gold-alpha);
         border-color: var(--gold);
+      }
+      & > i.voted {
+        color: var(--gold);
       }
     }
   }

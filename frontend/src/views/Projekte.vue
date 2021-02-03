@@ -2,12 +2,13 @@
   <main class="p1">
     <div class="p2">
       <ProjectCard
-        v-for="p of projects"
-        :project="p"
-        @vote="vote"
+        v-for="project of projects"
+        :project="project"
+        @open="openProject = project"
+        @vote="vote(project)"
       />
     </div>
-    <ProjectDetails :project="projects[0]"/>
+    <ProjectDetails :project="openProject" @close="openProject = null" @vote="vote(openProject)"/>
   </main>
 </template>
 
@@ -26,6 +27,7 @@
   export default class Projekte extends Vue {
     user: User | null = null
     projects: Project[] = []
+    openProject: Project|null = null
 
     async vote(project: Project) {
       // optimistic update

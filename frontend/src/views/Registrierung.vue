@@ -1,11 +1,11 @@
 <template>
   <main style="background-color: var(--gray-light)">
-    <div class="r1">
-      <div class="r3">
+    <div class="s1">
+      <div class="s3">
         <h1>Registrierung</h1>
         <h2>HACK::ONLINE</h2>
       </div>
-      <form class="r2" @submit.prevent="register" novalidate>
+      <form class="s2" @submit.prevent="register" novalidate>
         <InputText label="Benutzername" :error="errors.username">
           <input v-model="user.username" type="text">
         </InputText>
@@ -23,7 +23,7 @@
         </p>
         <button type="submit" class="Button">Registrieren</button>
       </form>
-      <p class="r4">
+      <p class="s4">
         Schon registriert? <br>
         <RouterLink to="/login" class="Link">Zum Login</RouterLink>
       </p>
@@ -34,9 +34,9 @@
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
   import InputText from "@/components/InputText.vue"
-  import Api from "@/services/Api"
   import Router from "@/services/Router"
   import InputPassword from "@/components/InputPassword.vue"
+  import Auth from "@/services/Auth"
 
   @Component({
     name: "Registrierung",
@@ -51,7 +51,7 @@
 
     async register() {
       try {
-        localStorage.setItem("isUser", await Api.post("register", this.user))
+        await Auth.register(this.user)
         await Router.push("/dashboard")
       } catch (e) {
         this.errors = e.response.data.errors
@@ -61,10 +61,10 @@
 </script>
 
 <style scoped>
-  .r1 {
+  .s1 {
     padding: 3rem 1.5rem;
   }
-  .r2 {
+  .s2 {
     display: grid;
     grid-gap: 1.5rem;
     max-width: 480px;
@@ -74,7 +74,7 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
   }
-  .r3 {
+  .s3 {
     max-width: 480px;
     margin: 0 auto 3rem;
     text-align: center;
@@ -86,7 +86,7 @@
       font-weight: bold;
     }
   }
-  .r4 {
+  .s4 {
     max-width: 480px;
     margin: 1rem auto 0;
     color: var(--black-light);

@@ -16,6 +16,11 @@ class Auth {
     localStorage.setItem("isUser", "")
   }
 
+  async register(user: Partial<User>) {
+    const isUser = await Api.post("register", user)
+    localStorage.setItem("isUser", isUser)
+  }
+
   check() {
     return localStorage.getItem('isUser')
   }

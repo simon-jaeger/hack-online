@@ -1,11 +1,11 @@
 <template>
   <main style="background-color: var(--gray-light)">
-    <div class="r1">
-      <div class="r3">
+    <div class="s1">
+      <div class="s3">
         <h1>Login</h1>
         <h2>HACK::ONLINE</h2>
       </div>
-      <form class="r2" @submit.prevent="login" novalidate>
+      <form class="s2" @submit.prevent="login" novalidate>
         <InputText label="E-Mail oder Benutzername" :error="errors.email">
           <input v-model="user.email" type="text">
         </InputText>
@@ -15,7 +15,7 @@
         <button type="submit" class="Button">Login</button>
       </form>
 
-      <p class="r4">
+      <p class="s4">
         Noch nicht registriert? <br>
         <RouterLink to="/registrierung" class="Link">Zur Registrierung
         </RouterLink>
@@ -27,7 +27,6 @@
 <script lang="ts">
   import {Component, Vue} from "vue-property-decorator"
   import InputText from "@/components/InputText.vue"
-  import Api from "@/services/Api"
   import Router from "@/services/Router"
   import InputPassword from "@/components/InputPassword.vue"
   import Auth from "@/services/Auth"
@@ -55,10 +54,10 @@
 </script>
 
 <style scoped>
-  .r1 {
+  .s1 {
     padding: 3rem 1.5rem;
   }
-  .r2 {
+  .s2 {
     display: grid;
     grid-gap: 1.5rem;
     max-width: 480px;
@@ -68,7 +67,7 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
   }
-  .r3 {
+  .s3 {
     max-width: 480px;
     margin: 0 auto 3rem;
     text-align: center;
@@ -80,7 +79,7 @@
       font-weight: bold;
     }
   }
-  .r4 {
+  .s4 {
     max-width: 480px;
     margin: 1rem auto 0;
     color: var(--black-light);

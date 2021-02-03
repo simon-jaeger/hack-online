@@ -1,6 +1,7 @@
 <template>
   <div class="projectCard">
     <button
+      @click="$emit('open')"
       class="image"
       :style="`background-image:url('${project.image}');`"
       type="button"
@@ -9,11 +10,17 @@
     </button>
     <div class="info">
       <div class="s1">
-        <h2 style="font-weight:bold;" class="truncate">{{ project.name }}</h2>
+        <button
+          @click="$emit('open')"
+          type="button"
+          style="font-weight:bold;"
+          class="truncate"
+        >{{ project.name }}
+        </button>
         <button
           class="vote"
           type="button"
-          @click="$emit('vote', project)"
+          @click="$emit('vote')"
           :disabled="Auth.guest() || project.owned"
         >
           <i class="star" :class="{voted: project.voted}">
@@ -46,12 +53,13 @@
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
     background-color: white;
+    overflow: hidden;
   }
   .image {
     position: relative;
     width: 100%;
     padding-bottom: 56.25%;
-    background-color: var(--black-light);
+    background-color: var(--gray);
     background-size: cover;
     background-position: center;
     & > i {
