@@ -61,7 +61,7 @@
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-gap: 1.5em;
+    grid-gap: 1.5rem;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     @media (--md) {
       grid-template-columns: repeat(2, minmax(0, 1fr));

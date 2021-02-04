@@ -5,15 +5,21 @@
         @click="$emit('close')"
         type="button"
         class="back"
-      >← Zurück
+      ><i>close</i>
       </button>
       <div
         class="image"
         :style="`background-image:url('${project.image}');`"
       ></div>
       <div class="info">
-        <h2 style="font-size: 2rem; font-weight:bold;" class="truncate">{{ project.name }}</h2>
-        <small style="font-size: 14px; color:var(--black-light); margin-bottom: 1rem;" class="truncate">
+        <h2
+          style="font-size: 1.5rem; line-height: 1; font-weight:bold; margin-bottom: 0.25rem;"
+          class="truncate"
+        >{{ project.name }}</h2>
+        <small
+          style="color:var(--black-lighter); margin-bottom: 1.5rem;"
+          class="truncate"
+        >
           {{ project.user.username }}
         </small>
         <div class="actions">
@@ -34,8 +40,8 @@
             {{ project.votes.length }} {{ project.votes.length === 1 ? "Stimme" : "Stimmen" }}
           </button>
         </div>
-        <p style="margin-bottom: 2rem;">{{ project.description }}</p>
-        <small style="font-size: 14px; color:var(--black-light);">
+        <p style="margin-bottom: 2rem; line-height: 1.7;">{{ project.description }}</p>
+        <small style="font-size: 14px; color:var(--black-lighter); padding-top: 1rem; border-top: 1px solid var(--gray);">
           Zuletzt aktualisert am {{ date }}
         </small>
       </div>
@@ -60,11 +66,11 @@
       return format(date, "d. MMMM yyyy", {locale: de})
     }
 
-    @Watch('project')
+    @Watch("project")
     syncBodyScroll() {
-      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-      document.body.style.overflow = this.project ? 'hidden' : ''
-      document.body.style.paddingRight = this.project ? scrollbarWidth + 'px' : ''
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+      document.body.style.overflow = this.project ? "hidden" : ""
+      document.body.style.paddingRight = this.project ? scrollbarWidth + "px" : ""
     }
   }
 </script>
@@ -88,13 +94,17 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
     @media (--sm) {
+      border-radius: 0;
       min-height: 100vh;
     }
   }
   .back {
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
     text-align: right;
     color: var(--white-dark);
     background-color: var(--black);
@@ -117,7 +127,7 @@
   .actions {
     display: flex;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     @media (--sm) {
       flex-direction: column;
     }
@@ -126,7 +136,7 @@
       align-items: center;
       gap: 0.5rem;
       padding: 0.5rem 1rem;
-      border: 1px solid var(--black-light);
+      border: 1px solid var(--black-lighter);
       border-radius: var(--border-radius);
       color: var(--black-light);
       &:hover {

@@ -13,7 +13,7 @@
         <button
           @click="$emit('open')"
           type="button"
-          style="font-weight:bold;"
+          style="font-weight:bold; line-height: 1; margin-bottom: 0.25rem;"
           class="truncate"
         >{{ project.name }}
         </button>
@@ -29,7 +29,7 @@
           <span style="font-size: 14px;">{{ project.votes.length }}</span>
         </button>
       </div>
-      <small style="color:var(--black-light);" class="truncate">
+      <small style="color:var(--black-lighter);" class="truncate">
         {{ project.user.username }}
       </small>
     </div>

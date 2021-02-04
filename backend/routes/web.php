@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 use App\Http\Controllers\AuthController;
 
+Route::get('/api/foo', fn() => 'foo ' . Carbon::now()->getTimestamp());
 // backend api
 // -----------------------------------------------------------------------------
 Route::prefix('api')->middleware('throttle:120,1')->group(function () {
