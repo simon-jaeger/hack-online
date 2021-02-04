@@ -7,6 +7,7 @@ import Projekte from "@/views/Projekte.vue"
 import Dashboard from "@/views/Dashboard.vue"
 import Login from "@/views/Login.vue"
 import Datenschutzerklaerung from "@/views/Datenschutzerklaerung.vue"
+import Auth from "@/services/Auth"
 
 Vue.use(VueRouter)
 
@@ -34,7 +35,8 @@ const Router = new VueRouter({
       path: "/dashboard",
       component: Dashboard,
       beforeEnter: (to, from, next) => {
-        if (!localStorage.getItem("user"))
+        console.log(Auth.guest())
+        if (Auth.guest())
           return Router.push("/login")
         return next()
       },
@@ -42,10 +44,20 @@ const Router = new VueRouter({
     {
       path: "/registrierung",
       component: Registrierung,
+      beforeEnter: (to, from, next) => {
+        if (Auth.check())
+          return Router.push("/dashboard")
+        return next()
+      },
     },
     {
       path: "/login",
       component: Login,
+      beforeEnter: (to, from, next) => {
+        if (Auth.check())
+          return Router.push("/dashboard")
+        return next()
+      },
     },
   ],
   scrollBehavior(to, from, savedPosition) {

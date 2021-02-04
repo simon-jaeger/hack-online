@@ -1,3 +1,74 @@
+/* global */
+/******************************************************************************/
+@custom-media --md (max-width: 1040px);
+@custom-media --sm (max-width: 640px);
+
+:root {
+  --vhi: 1vh; /* initial vh, set via js */
+
+  --black: hsl(0, 0%, 10%);
+  --black-light: hsl(0, 0%, 25%);
+  --black-lighter: hsl(0, 0%, 38%);
+  --black-alpha: rgba(0, 0, 0, 0.75);
+
+  --gray: hsl(0, 0%, 79%);
+  --gray-light: hsl(0, 0%, 96%);
+  --gray-lighter: hsl(0, 0%, 99%);
+  --gray-alpha: rgba(0, 0, 0, 0.05);
+
+  --white: rgba(255, 255, 255, 0.9);
+  --white-dark: rgba(255, 255, 255, 0.75);
+  --white-darker: rgba(255, 255, 255, 0.6);
+
+  --teal: #0b5763;
+  --teal-light: #429dac;
+  --red: #DA3453;
+  --gold: hsl(31, 100%, 50%);
+  --gold-alpha: hsla(31, 100%, 50%, 0.08);
+
+  --text-shadow: 4px 4px 0 black;
+  --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
+
+  --border-radius: 3px;
+}
+
+body {
+  overflow-y: scroll;
+  font-family: 'Roboto', system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5;
+  background-color: white;
+  color: var(--black);
+}
+
+main {
+  min-height: calc(100vh - 4rem);
+}
+
+i {
+  font-family: 'Material Icons', sans-serif;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.25rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+/* utils */
+/******************************************************************************/
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* fonts */
 /******************************************************************************/
 @font-face {
@@ -37,64 +108,4 @@
   font-weight: 400;
   font-display: block;
   src: url('/fonts/MaterialIcons-Regular.ttf') format('truetype');
-}
-
-/* global */
-/******************************************************************************/
-@custom-media --md (max-width: 1040px);
-@custom-media --sm (max-width: 640px);
-
-:root {
-  --vhi: 1vh; /* initial vh, set via js */
-
-  --black: rgba(0, 0, 0, 0.9);
-  --black-light: rgba(0, 0, 0, 0.75);
-  --black-lighter: rgba(0, 0, 0, 0.5);
-
-  --gray: rgba(0, 0, 0, 0.2);
-  --gray-light: rgba(0, 0, 0, 0.04);
-  --gray-lighter: rgba(0, 0, 0, 0.01);
-
-  --white: rgba(255, 255, 255, 0.9);
-  --white-dark: rgba(255, 255, 255, 0.75);
-  --white-darker: rgba(255, 255, 255, 0.5);
-
-  --teal: #0b5763;
-  --teal-light: #429dac;
-
-  --red: #DA3453;
-
-  --text-shadow: 4px 4px 0 black;
-  --box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-
-  --border-radius: 3px;
-}
-
-body {
-  overflow-y: scroll;
-  font-family: 'Roboto', system-ui, sans-serif;
-  font-size: 1rem;
-  line-height: 1.5;
-  background-color: white;
-  color: var(--black);
-}
-
-main {
-  min-height: calc(100vh - 4rem);
-}
-
-i {
-  font-family: 'Material Icons', sans-serif;
-  font-weight: normal;
-  font-style: normal;
-  font-size: 1.25rem;
-  line-height: 1;
-  letter-spacing: normal;
-  text-transform: none;
-  display: inline-block;
-  white-space: nowrap;
-  word-wrap: normal;
-  direction: ltr;
-  -webkit-font-feature-settings: 'liga';
-  -webkit-font-smoothing: antialiased;
 }

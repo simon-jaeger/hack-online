@@ -71,7 +71,7 @@
     components: {},
   })
   export default class Home extends Vue {
-    d: null | HomeInterface = null
+    d: HomeInterface | null = null
 
     async created() {
       this.d = await Cms.get("home")
@@ -216,7 +216,7 @@
     font-size: 1.25rem;
     font-weight: 500;
     color: var(--teal);
-    &:hover {
+    &:hover, &:focus-visible {
       text-decoration: underline;
     }
   }
@@ -256,7 +256,7 @@
     font-size: 1.25rem;
     font-weight: 500;
     color: var(--teal-light);
-    &:hover {
+    &:hover, &:focus-visible {
       text-decoration: underline;
     }
   }

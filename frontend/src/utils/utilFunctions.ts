@@ -26,6 +26,13 @@ export function toggle(array: any[], pElements: any | any[]) {
   })
 }
 
+// fill all object properties with the same value
+export function fill(obj:Object, value) {
+  for (const key in obj) {
+    obj[key] = value
+  }
+}
+
 // download file(s)
 export function download(pUrls: string | string[]) {
   const urls = Array.isArray(pUrls) ? pUrls : [pUrls]

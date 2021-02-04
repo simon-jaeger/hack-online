@@ -48,7 +48,7 @@
   .link {
     padding: 1rem;
     color: var(--white-dark);
-    &:hover {
+    &:hover, &:focus-visible {
       color: var(--white);
     }
     @media (--sm) {
@@ -59,7 +59,7 @@
     margin-left: auto;
     font-size: 2rem;
     color: var(--white-dark);
-    &:hover {
+    &:hover, &:focus-visible {
       color: var(--white);
     }
   }

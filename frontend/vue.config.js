@@ -1,4 +1,4 @@
 module.exports = {
-  devServer: {open: true, proxy: "http://hack-online.test"},
+  devServer: {proxy: "http://hackonline.test"},
   outputDir: "../backend/public/",
 }
