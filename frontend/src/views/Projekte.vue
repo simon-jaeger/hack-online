@@ -28,6 +28,7 @@
     user: User | null = null
     projects: Project[] = []
     openProject: Project|null = null
+    pollingInterval
 
     async vote(project: Project) {
       // optimistic update
@@ -43,8 +44,18 @@
       this.projects = await Api.get("projects")
     }
 
-    activated() {
+    getProjects() {
+      console.log('get')
       Api.get("projects").then(x => this.projects = x)
+    }
+
+    activated() {
+      this.getProjects()
+      this.pollingInterval = setInterval(this.getProjects, 4000)
+    }
+
+    deactivated() {
+      clearInterval(this.pollingInterval)
     }
   }
 </script>
